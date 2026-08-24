@@ -3,27 +3,29 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Tourne info</title>
+<title>Musical Danmark tourné info</title>
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <div id="lock-screen" class="lock-screen">
     <div class="lock-card">
-      <div class="lock-icon">🎫</div>
-      <h1>Tourne info</h1>
-      <p class="lock-sub">Indtast koden du har fået af turnéledelsen</p>
-      <form id="lock-form" autocomplete="off">
-        <input id="lock-input" type="password" inputmode="text" placeholder="Adgangskode" autocapitalize="off" autocorrect="off" spellcheck="false" />
-        <button type="submit">Lås op</button>
-      </form>
-      <p id="lock-error" class="lock-error" hidden>Forkert kode, prøv igen.</p>
+      <img class="lock-banner" src="banner.jpg" alt="Høj Sol over Aarhus" />
+      <div class="lock-card-body">
+        <h1>Musical Danmark tourné info</h1>
+        <p class="lock-sub">Indtast koden du har fået af turnéledelsen</p>
+        <form id="lock-form" autocomplete="off">
+          <input id="lock-input" type="password" inputmode="text" placeholder="Adgangskode" autocapitalize="off" autocorrect="off" spellcheck="false" />
+          <button type="submit">Lås op</button>
+        </form>
+        <p id="lock-error" class="lock-error" hidden>Forkert kode, prøv igen.</p>
+      </div>
     </div>
   </div>
 
   <div id="app" class="app" hidden>
     <header class="topbar">
-      <h1 class="brand">Tourne info</h1>
+      <h1 class="brand">Musical Danmark</h1>
       <div class="topbar-actions">
         <button id="btn-list" class="icon-btn" title="Se alle datoer" aria-label="Se alle datoer">☰</button>
         <button id="btn-refresh" class="icon-btn" title="Opdater data" aria-label="Opdater data">⟳</button>
