@@ -135,7 +135,7 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: calc(14px + var(--safe-top)) 16px 14px;
+  padding: calc(12px + var(--safe-top)) 16px 12px;
   border-bottom: 1px solid var(--border);
   background: var(--bg-elevated);
   position: sticky;
@@ -144,15 +144,37 @@ button {
 }
 
 .brand {
-  font-size: 17px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
   margin: 0;
-  font-weight: 700;
-  letter-spacing: 0.2px;
   min-width: 0;
   flex: 1;
+}
+
+.brand-line {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.brand-line-main {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.brand-line-sub {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--accent);
+}
+
+.brand-line-show {
+  font-size: 11px;
+  color: var(--text-dim);
 }
 
 .topbar-actions {
