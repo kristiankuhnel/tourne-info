@@ -134,6 +134,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   padding: calc(14px + var(--safe-top)) 16px 14px;
   border-bottom: 1px solid var(--border);
   background: var(--bg-elevated);
@@ -147,10 +148,16 @@ button {
   margin: 0;
   font-weight: 700;
   letter-spacing: 0.2px;
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .topbar-actions {
   display: flex;
+  flex: none;
   gap: 6px;
 }
 
