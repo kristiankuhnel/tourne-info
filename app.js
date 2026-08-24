@@ -36,9 +36,14 @@
   const jobDate = $("job-date");
   const jobVenue = $("job-venue");
   const jobCity = $("job-city");
+  const jobAddress = $("job-address");
+  const jobAddressLink = $("job-address-link");
+  const jobAddressText = $("job-address-text");
   const jobTimes = $("job-times");
   const jobAccess = $("job-access");
   const jobAccessRows = $("job-access-rows");
+  const jobHotel = $("job-hotel");
+  const jobHotelRows = $("job-hotel-rows");
   const jobTech = $("job-tech");
   const jobTechValue = $("job-tech-value");
   const jobNotes = $("job-notes");
@@ -158,9 +163,16 @@
       dato: idx("Dato"),
       by: idx("By"),
       venue: idx("Venue"),
+      adresse: idx("Adresse"),
+      crewGetIn: idx("Crew get-in"),
+      artistGetIn: idx("Artist get-in"),
+      lydprove: idx("Lydprøve"),
       aftensmad: idx("Aftensmad"),
+      dore: idx("Døre"),
       showtid: idx("Showtid"),
       sluttid: idx("Sluttid"),
+      hotelArtist: idx("Hotel Artist"),
+      hotelCrew: idx("Hotel Crew"),
       doorcode: idx("Doorcode"),
       ssid: idx("SSID"),
       pass: idx("PASS"),
@@ -186,9 +198,16 @@
         dato,
         by: get(r, "by"),
         venue: get(r, "venue"),
+        adresse: get(r, "adresse"),
+        crewGetIn: get(r, "crewGetIn"),
+        artistGetIn: get(r, "artistGetIn"),
+        lydprove: get(r, "lydprove"),
         aftensmad: get(r, "aftensmad"),
+        dore: get(r, "dore"),
         showtid: get(r, "showtid"),
         sluttid: get(r, "sluttid"),
+        hotelArtist: get(r, "hotelArtist"),
+        hotelCrew: get(r, "hotelCrew"),
         doorcode: get(r, "doorcode"),
         ssid: get(r, "ssid"),
         pass: get(r, "pass"),
@@ -281,9 +300,21 @@
     jobCity.textContent = job.by || "";
     jobCity.style.display = job.by ? "" : "none";
 
+    if (job.adresse) {
+      jobAddress.hidden = false;
+      jobAddressText.textContent = job.adresse;
+      jobAddressLink.href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(job.adresse);
+    } else {
+      jobAddress.hidden = true;
+    }
+
     jobTimes.innerHTML = "";
     const timeFields = [
+      ["Crew get-in", job.crewGetIn],
+      ["Artist get-in", job.artistGetIn],
+      ["Lydprøve", job.lydprove],
       ["Aftensmad", job.aftensmad],
+      ["Døre", job.dore],
       ["Showtid", job.showtid],
       ["Sluttid", job.sluttid],
     ];
@@ -295,31 +326,18 @@
       jobTimes.appendChild(chip);
     }
 
-    const accessFields = [
+    renderKvRows(jobAccessRows, [
       ["Doorcode", job.doorcode],
       ["Wifi (SSID)", job.ssid],
       ["Wifi-kode", job.pass],
-    ];
-    const activeAccess = accessFields.filter(([, v]) => v);
-    jobAccessRows.innerHTML = "";
-    if (activeAccess.length > 0) {
-      jobAccess.hidden = false;
-      for (const [label, value] of activeAccess) {
-        const row = document.createElement("div");
-        row.className = "access-row";
-        row.innerHTML = `
-          <div class="access-row-text">
-            <span class="access-row-label">${label}</span>
-            <span class="access-row-value">${escapeHtml(value)}</span>
-          </div>
-          <button class="copy-btn" type="button">Kopiér</button>
-        `;
-        row.querySelector(".copy-btn").addEventListener("click", () => copyToClipboard(value));
-        jobAccessRows.appendChild(row);
-      }
-    } else {
-      jobAccess.hidden = true;
-    }
+    ]);
+    jobAccess.hidden = jobAccessRows.children.length === 0;
+
+    renderKvRows(jobHotelRows, [
+      ["Artist", job.hotelArtist],
+      ["Crew", job.hotelCrew],
+    ]);
+    jobHotel.hidden = jobHotelRows.children.length === 0;
 
     if (job.hustekniker) {
       jobTech.hidden = false;
@@ -340,6 +358,24 @@
     jobPosition.textContent = `Job ${index + 1} af ${jobs.length}`;
 
     highlightActiveListItem();
+  }
+
+  function renderKvRows(container, fields) {
+    container.innerHTML = "";
+    for (const [label, value] of fields) {
+      if (!value) continue;
+      const row = document.createElement("div");
+      row.className = "kv-row";
+      row.innerHTML = `
+        <div class="kv-row-text">
+          <span class="kv-row-label">${label}</span>
+          <span class="kv-row-value">${escapeHtml(value)}</span>
+        </div>
+        <button class="copy-btn" type="button">Kopiér</button>
+      `;
+      row.querySelector(".copy-btn").addEventListener("click", () => copyToClipboard(value));
+      container.appendChild(row);
+    }
   }
 
   function escapeHtml(str) {

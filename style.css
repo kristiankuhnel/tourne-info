@@ -263,7 +263,21 @@ main {
 .job-city {
   color: var(--text-dim);
   font-size: 14px;
+}
+
+.job-address {
   margin-bottom: 18px;
+}
+
+.job-address a {
+  color: var(--text-dim);
+  font-size: 13px;
+  text-decoration: none;
+  border-bottom: 1px dashed var(--border);
+}
+
+.job-address a:active {
+  color: var(--accent);
 }
 
 .chip-row {
@@ -321,36 +335,44 @@ main {
   margin-top: 16px;
 }
 
-.access-rows {
+.kv-rows {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.access-row {
+.kv-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  background: rgba(0,0,0,0.18);
+  background: var(--bg-card);
   border-radius: 10px;
   padding: 10px 12px;
 }
 
-.access-row-text {
+.info-box-access .kv-row {
+  background: rgba(0,0,0,0.18);
+}
+
+.kv-row-text {
   min-width: 0;
 }
 
-.access-row-label {
+.kv-row-label {
   display: block;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.4px;
-  color: #d8c48d;
+  color: var(--text-dim);
   margin-bottom: 2px;
 }
 
-.access-row-value {
+.info-box-access .kv-row-label {
+  color: #d8c48d;
+}
+
+.kv-row-value {
   font-size: 15px;
   font-weight: 600;
   word-break: break-word;
