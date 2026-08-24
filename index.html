@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Tourne info</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="lock-screen" class="lock-screen">
+    <div class="lock-card">
+      <div class="lock-icon">🎫</div>
+      <h1>Tourne info</h1>
+      <p class="lock-sub">Indtast koden du har fået af turnéledelsen</p>
+      <form id="lock-form" autocomplete="off">
+        <input id="lock-input" type="password" inputmode="text" placeholder="Adgangskode" autocapitalize="off" autocorrect="off" spellcheck="false" />
+        <button type="submit">Lås op</button>
+      </form>
+      <p id="lock-error" class="lock-error" hidden>Forkert kode, prøv igen.</p>
+    </div>
+  </div>
+
+  <div id="app" class="app" hidden>
+    <header class="topbar">
+      <h1 class="brand">Tourne info</h1>
+      <div class="topbar-actions">
+        <button id="btn-list" class="icon-btn" title="Se alle datoer" aria-label="Se alle datoer">☰</button>
+        <button id="btn-refresh" class="icon-btn" title="Opdater data" aria-label="Opdater data">⟳</button>
+        <button id="btn-lock" class="icon-btn" title="Lås siden" aria-label="Lås siden">🔒</button>
+      </div>
+    </header>
+
+    <main id="main">
+      <div id="state-loading" class="state-msg">
+        <div class="spinner"></div>
+        <p>Henter tourne-data…</p>
+      </div>
+
+      <div id="state-error" class="state-msg" hidden>
+        <p class="state-error-title">Kunne ikke hente data</p>
+        <p id="state-error-detail" class="state-error-detail"></p>
+        <button id="btn-retry" class="btn-primary">Prøv igen</button>
+      </div>
+
+      <div id="card-view" class="card-view" hidden>
+        <button id="btn-prev" class="nav-btn nav-prev" aria-label="Forrige job">‹</button>
+
+        <section id="job-card" class="job-card">
+          <div class="job-date-row">
+            <span id="job-weekday" class="job-weekday"></span>
+            <span id="job-date" class="job-date"></span>
+          </div>
+          <h2 id="job-venue" class="job-venue"></h2>
+          <div id="job-city" class="job-city"></div>
+
+          <div id="job-times" class="chip-row"></div>
+
+          <div id="job-access" class="info-box info-box-access" hidden>
+            <h3>Adgang &amp; wifi</h3>
+            <div id="job-access-rows" class="access-rows"></div>
+          </div>
+
+          <div id="job-tech" class="info-box" hidden>
+            <h3>Hustekniker</h3>
+            <p id="job-tech-value"></p>
+          </div>
+
+          <div id="job-notes" class="info-box" hidden>
+            <h3>Noter</h3>
+            <p id="job-notes-value"></p>
+          </div>
+        </section>
+
+        <button id="btn-next" class="nav-btn nav-next" aria-label="Næste job">›</button>
+      </div>
+
+      <div id="job-position" class="job-position" hidden></div>
+    </main>
+
+    <div id="list-view" class="list-view" hidden>
+      <div class="list-view-header">
+        <h2>Alle datoer</h2>
+        <button id="btn-close-list" class="icon-btn" aria-label="Luk liste">✕</button>
+      </div>
+      <ul id="list-items" class="list-items"></ul>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
