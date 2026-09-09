@@ -165,6 +165,7 @@
       venue: idx("Venue"),
       adresse: idx("Adresse"),
       crewGetIn: idx("Crew get-in"),
+      afgangVibyJ: idx("Afgang Viby J"),
       artistGetIn: idx("Artist get-in"),
       lydprove: idx("Lydprøve"),
       aftensmad: idx("Aftensmad"),
@@ -200,6 +201,7 @@
         venue: get(r, "venue"),
         adresse: get(r, "adresse"),
         crewGetIn: get(r, "crewGetIn"),
+        afgangVibyJ: get(r, "afgangVibyJ"),
         artistGetIn: get(r, "artistGetIn"),
         lydprove: get(r, "lydprove"),
         aftensmad: get(r, "aftensmad"),
@@ -311,6 +313,7 @@
     jobTimes.innerHTML = "";
     const timeFields = [
       ["Crew get-in", job.crewGetIn],
+      ["Afgang Viby J", job.afgangVibyJ],
       ["Artist get-in", job.artistGetIn],
       ["Lydprøve", job.lydprove],
       ["Aftensmad", job.aftensmad],
