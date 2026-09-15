@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Infoskærm</title>
 <link rel="stylesheet" href="style.css?v=6" />
-<link rel="stylesheet" href="infoscreen.css?v=1" />
+<link rel="stylesheet" href="infoscreen.css?v=2" />
 </head>
 <body>
 
@@ -36,11 +36,6 @@
       <p id="state-error-detail" class="state-error-detail"></p>
     </div>
 
-    <div id="state-no-show" class="is-state-msg" hidden>
-      <p class="state-error-title">Intet show i dag</p>
-      <p>Næste show: <span id="next-show-info"></span></p>
-    </div>
-
     <div id="show-view" class="is-grid" hidden>
       <header class="is-header">
         <div class="is-header-main">
@@ -48,6 +43,7 @@
           <div id="is-city"></div>
         </div>
         <div class="is-header-date">
+          <div id="is-day-badge" class="is-day-badge" hidden>Næste show</div>
           <div id="is-weekday"></div>
           <div id="is-date"></div>
         </div>
@@ -86,6 +82,6 @@
   </div>
 
   <script src="shared.js?v=1"></script>
-  <script src="infoscreen.js?v=1"></script>
+  <script src="infoscreen.js?v=2"></script>
 </body>
 </html>

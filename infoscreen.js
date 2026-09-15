@@ -21,12 +21,11 @@
   const stateLoading = $("state-loading");
   const stateError = $("state-error");
   const stateErrorDetail = $("state-error-detail");
-  const stateNoShow = $("state-no-show");
-  const nextShowInfo = $("next-show-info");
   const showView = $("show-view");
 
   const isVenue = $("is-venue");
   const isCity = $("is-city");
+  const isDayBadge = $("is-day-badge");
   const isWeekday = $("is-weekday");
   const isDate = $("is-date");
 
@@ -45,6 +44,7 @@
 
   let currentJob = null;
   let timelineEntries = []; // [{ key, label, text, date }]
+  let showIsToday = true;
   let tickTimer = null;
   let refreshTimer = null;
 
@@ -84,7 +84,6 @@
   function setState(state) {
     stateLoading.hidden = state !== "loading";
     stateError.hidden = state !== "error";
-    stateNoShow.hidden = state !== "no-show";
     showView.hidden = state !== "show";
   }
 
@@ -93,19 +92,11 @@
     try {
       const jobs = await fetchJobs();
       const todayIdx = findTodayIndex(jobs);
+      const isToday = todayIdx !== -1;
+      const index = isToday ? todayIdx : findUpcomingIndex(jobs);
 
-      if (todayIdx === -1) {
-        const upcoming = jobs[findUpcomingIndex(jobs)];
-        const { date } = formatDato(upcoming.dato);
-        nextShowInfo.textContent = `${date} — ${upcoming.venue || upcoming.by}`;
-        setState("no-show");
-        currentJob = null;
-        stopTicking();
-        return;
-      }
-
-      currentJob = jobs[todayIdx];
-      renderShow(currentJob);
+      currentJob = jobs[index];
+      renderShow(currentJob, isToday);
       setState("show");
       startTicking();
     } catch (err) {
@@ -119,13 +110,15 @@
     }
   }
 
-  function renderShow(job) {
+  function renderShow(job, isToday) {
     const { weekday, date } = formatDato(job.dato);
     isVenue.textContent = job.venue || "Venue ikke angivet";
     isCity.textContent = job.by || "";
     isCity.style.display = job.by ? "" : "none";
+    isDayBadge.hidden = isToday;
     isWeekday.textContent = weekday;
     isDate.textContent = date;
+    showIsToday = isToday;
 
     timelineEntries = TIME_FIELDS
       .map(([key, label]) => ({
@@ -207,7 +200,9 @@
     });
 
     if (!next) {
-      countdownLabel.textContent = timelineEntries.length ? "Dagens tider er overstået" : "";
+      countdownLabel.textContent = timelineEntries.length
+        ? (showIsToday ? "Dagens tider er overstået" : "Ingen tider fundet")
+        : "";
       countdownValue.textContent = "–";
       return;
     }
@@ -218,10 +213,12 @@
 
   function formatCountdown(ms) {
     const totalSeconds = Math.max(0, Math.floor(ms / 1000));
-    const h = Math.floor(totalSeconds / 3600);
+    const d = Math.floor(totalSeconds / 86400);
+    const h = Math.floor((totalSeconds % 86400) / 3600);
     const m = Math.floor((totalSeconds % 3600) / 60);
     const s = totalSeconds % 60;
     const pad = (n) => String(n).padStart(2, "0");
+    if (d > 0) return `${d}d ${h}:${pad(m)}:${pad(s)}`;
     return h > 0 ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
   }
 
