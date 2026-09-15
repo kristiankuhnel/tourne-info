@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Infoskærm</title>
+<link rel="stylesheet" href="style.css?v=6" />
+<link rel="stylesheet" href="infoscreen.css?v=1" />
+</head>
+<body>
+
+  <div id="lock-screen" class="lock-screen">
+    <div class="lock-card">
+      <img class="lock-banner" src="banner.jpg" alt="Høj Sol over Aarhus" />
+      <div class="lock-card-body">
+        <h1>Musical Danmark tourné info</h1>
+        <p class="lock-sub">Indtast koden du har fået af turnéledelsen</p>
+        <form id="lock-form" autocomplete="off">
+          <input id="lock-input" type="password" inputmode="text" placeholder="Adgangskode" autocapitalize="off" autocorrect="off" spellcheck="false" />
+          <button type="submit">Lås op</button>
+        </form>
+        <p id="lock-error" class="lock-error" hidden>Forkert kode, prøv igen.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="screen" class="infoscreen" hidden>
+
+    <div id="state-loading" class="is-state-msg">
+      <div class="spinner"></div>
+      <p>Henter data…</p>
+    </div>
+
+    <div id="state-error" class="is-state-msg" hidden>
+      <p class="state-error-title">Kunne ikke hente data</p>
+      <p id="state-error-detail" class="state-error-detail"></p>
+    </div>
+
+    <div id="state-no-show" class="is-state-msg" hidden>
+      <p class="state-error-title">Intet show i dag</p>
+      <p>Næste show: <span id="next-show-info"></span></p>
+    </div>
+
+    <div id="show-view" class="is-grid" hidden>
+      <header class="is-header">
+        <div class="is-header-main">
+          <h1 id="is-venue"></h1>
+          <div id="is-city"></div>
+        </div>
+        <div class="is-header-date">
+          <div id="is-weekday"></div>
+          <div id="is-date"></div>
+        </div>
+      </header>
+
+      <section class="is-timeline-col">
+        <div id="countdown" class="is-countdown">
+          <div id="countdown-label" class="is-countdown-label">Næste</div>
+          <div id="countdown-value" class="is-countdown-value">–</div>
+        </div>
+        <ol id="timeline-list" class="is-timeline"></ol>
+      </section>
+
+      <section class="is-info-col">
+        <div id="is-access" class="info-box info-box-access" hidden>
+          <h3>Adgang &amp; wifi</h3>
+          <div id="is-access-rows" class="kv-rows"></div>
+        </div>
+
+        <div id="is-tech" class="info-box" hidden>
+          <h3>Hustekniker</h3>
+          <p id="is-tech-value"></p>
+        </div>
+
+        <div id="is-notes" class="info-box" hidden>
+          <h3>Noter</h3>
+          <p id="is-notes-value"></p>
+        </div>
+
+        <div id="is-hotel" class="info-box" hidden>
+          <h3>Hotel</h3>
+          <div id="is-hotel-rows" class="kv-rows"></div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="shared.js?v=1"></script>
+  <script src="infoscreen.js?v=1"></script>
+</body>
+</html>

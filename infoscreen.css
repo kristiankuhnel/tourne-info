@@ -1,0 +1,184 @@
+/* Infoskærm: stort format til en TV/skærm på spillestedet, ikke mobil. */
+
+html, body { height: 100%; }
+
+.infoscreen {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.is-state-msg {
+  margin: auto;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 28px;
+}
+
+.is-state-msg .spinner {
+  width: 48px;
+  height: 48px;
+  border-width: 4px;
+  margin: 0 auto 20px;
+}
+
+.is-state-msg .state-error-title {
+  font-size: 36px;
+  margin-bottom: 14px;
+}
+
+.is-grid {
+  height: 100%;
+  box-sizing: border-box;
+  padding: clamp(20px, 2.5vw, 48px);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 1fr;
+  gap: clamp(16px, 2vw, 32px);
+  min-height: 0;
+}
+
+.is-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: clamp(12px, 1.5vw, 24px);
+  flex: none;
+}
+
+.is-header-main h1 {
+  margin: 0;
+  font-size: clamp(32px, 4.5vw, 64px);
+  line-height: 1.1;
+}
+
+.is-header-main #is-city {
+  color: var(--text-dim);
+  font-size: clamp(16px, 1.8vw, 26px);
+  margin-top: 4px;
+}
+
+.is-header-date {
+  text-align: right;
+  flex: none;
+}
+
+.is-header-date #is-weekday {
+  color: var(--accent);
+  font-weight: 700;
+  text-transform: capitalize;
+  font-size: clamp(16px, 1.8vw, 26px);
+}
+
+.is-header-date #is-date {
+  font-size: clamp(14px, 1.4vw, 20px);
+  color: var(--text-dim);
+}
+
+.is-grid > .is-header { grid-column: 1 / -1; }
+
+.is-timeline-col,
+.is-info-col {
+  min-height: 0;
+  overflow-y: auto;
+}
+
+@media (min-width: 900px) {
+  .is-grid {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  }
+}
+
+.is-countdown {
+  background: var(--accent-dim);
+  border: 1px solid #5c4e28;
+  border-radius: var(--radius);
+  padding: clamp(14px, 1.8vw, 26px);
+  text-align: center;
+  margin-bottom: clamp(14px, 1.8vw, 24px);
+}
+
+.is-countdown-label {
+  color: #d8c48d;
+  font-size: clamp(14px, 1.4vw, 20px);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-weight: 600;
+}
+
+.is-countdown-value {
+  font-size: clamp(32px, 5vw, 68px);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.is-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 0.8vw, 12px);
+}
+
+.is-timeline-item {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(12px, 1.5vw, 24px);
+  padding: clamp(10px, 1.2vw, 16px) clamp(12px, 1.5vw, 20px);
+  border-radius: 12px;
+  border: 1px solid transparent;
+}
+
+.is-timeline-time {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: clamp(18px, 2.2vw, 30px);
+  min-width: 3.4em;
+}
+
+.is-timeline-label {
+  font-size: clamp(16px, 1.8vw, 24px);
+  color: var(--text-dim);
+}
+
+.is-timeline-item.is-past {
+  opacity: 0.4;
+}
+
+.is-timeline-item.is-next {
+  background: var(--accent-dim);
+  border-color: #5c4e28;
+}
+
+.is-timeline-item.is-next .is-timeline-time,
+.is-timeline-item.is-next .is-timeline-label {
+  color: var(--text);
+}
+
+.is-info-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.is-info-col .info-box {
+  font-size: clamp(15px, 1.6vw, 20px);
+}
+
+.is-info-col .info-box h3 {
+  font-size: clamp(13px, 1.2vw, 16px);
+}
+
+.is-info-col .kv-row-value,
+.is-info-col .info-box p {
+  font-size: clamp(17px, 1.9vw, 24px);
+}
+
+.is-info-col .copy-btn {
+  font-size: clamp(13px, 1.2vw, 16px);
+  padding: 8px 14px;
+}
