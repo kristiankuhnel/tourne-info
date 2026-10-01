@@ -30,6 +30,12 @@ window.Tourne = (() => {
   ];
 
   async function sha256Hex(text) {
+    if (!window.crypto || !window.crypto.subtle) {
+      // crypto.subtle findes kun i en sikker kontekst (https:// eller localhost).
+      // Rammes typisk hvis siden tilgås via http:// (fx mens et nyt custom
+      // domænes GitHub Pages-certifikat stadig udstedes).
+      throw new Error("INSECURE_CONTEXT");
+    }
     const enc = new TextEncoder().encode(text);
     const digest = await crypto.subtle.digest("SHA-256", enc);
     return Array.from(new Uint8Array(digest))

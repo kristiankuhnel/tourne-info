@@ -68,14 +68,22 @@
     e.preventDefault();
     const value = lockInput.value.trim();
     if (!value) return;
-    const hash = await sha256Hex(value);
-    if (hash === PASSCODE_HASH) {
-      localStorage.setItem(AUTH_STORAGE_KEY, hash);
-      lockError.hidden = true;
-      showScreenApp();
-    } else {
+    try {
+      const hash = await sha256Hex(value);
+      if (hash === PASSCODE_HASH) {
+        localStorage.setItem(AUTH_STORAGE_KEY, hash);
+        lockError.hidden = true;
+        showScreenApp();
+      } else {
+        lockError.textContent = "Forkert kode, prøv igen.";
+        lockError.hidden = false;
+        lockInput.select();
+      }
+    } catch (err) {
+      lockError.textContent = err && err.message === "INSECURE_CONTEXT"
+        ? "Denne forbindelse er ikke sikker. Tjek at adressen i browseren starter med https:// (ikke http://), og prøv igen."
+        : "Der skete en fejl ved login. Prøv igen.";
       lockError.hidden = false;
-      lockInput.select();
     }
   });
 
